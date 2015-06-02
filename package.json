@@ -1,0 +1,32 @@
+{
+  "name": "pitchfork-preview",
+  "appName": "Pitchfork Preview",
+  "version": "0.0.1",
+  "main": "app.js",
+  "window": {
+    "frame": true,
+    "toolbar": false
+  },
+  "scripts": {
+    "test": "npm run hint",
+    "hint": "./node_modules/jshint/bin/jshint ./",
+    "build": "node ./bin/build"
+  },
+  "dependencies": {
+    "react": "^0.13.1",
+    "underscore": "^1.8.3",
+    "express": "^4.4.5",
+    "pitchfork": "^0.0.8",
+    "async": "^1.1.0"
+    },
+  "devDependencies": {
+    "jshint": "^2.6.3",
+    "babel": "^5.1.11",
+    "babelify": "^6.0.2",
+    "browserify": "^9.0.8",
+    "gulp": "^3.8.11",
+    "gulp-rename": "^1.2.2",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "private": true
+}
