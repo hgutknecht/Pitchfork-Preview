@@ -39,8 +39,8 @@ var ReviewContainer = React.createClass({
     return (
       <div className="reviewContainer">
         <h1>Pitchfork Preview</h1>
-        <ReviewList data={this.state.data} />
         <ReviewForm handlePageRequest={this.handlePageRequest} />
+        <ReviewList data={this.state.data} />
       </div>
     );
   }
@@ -53,7 +53,7 @@ var ReviewList = React.createClass({
   render: function() {
     var reviewNodes = this.props.data.map(function (review) {
       return (
-        <Review name={review.name} artist={review.artist} album={review.album} score={review.score} text={review.text}>
+        <Review name={review.name} artist={review.artist} album={review.album} score={review.score} text={review.text} cover={review.cover}>
         </Review>
       );
     });
@@ -106,12 +106,11 @@ var Review = React.createClass({
   render: function() {
     return (
       <div className="review">
-        <h2 className="reviewAuthor">
-          {this.props.name}
-        </h2>
-        <div className="reviewCover"><img src="{this.props.image}" /></div>
-        <div className="reviewScore">{this.props.score}</div>
-        <div className="reviewText">{this.props.text}</div>
+        <div className="reviewCover"><img src={this.props.cover} width="75px" height="75px" /></div>
+        <div className="reviewScore"><span>{this.props.score}</span></div>
+        <div className="reviewText"><h3 className="reviewAuthor">{this.props.name}</h3>
+          {this.props.text}
+        </div>
       </div>
     );
   }
