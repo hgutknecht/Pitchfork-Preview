@@ -1,17 +1,22 @@
 var fs = require('fs')
     , path = require('path')
     , express = require('express')
-    , async = require('async')
-    , app = express()
+    , _ = require('underscore')
     , p = require('pitchfork')
+    , app = express()
     , theReviews = []
-    , s = 1
+    , s = null
     , count = 0;
 
+/*
+ * Express settings.
+ */
 app.set('port', (process.env.PORT || 3000));
 app.use('/', express.static(path.join(__dirname, 'public')));
 
-// Fetch reviews
+/*
+ * Fetch reviews from pitchfork.
+ */
 function getReviews(pageNum, callback) {
   s = new p.Page(pageNum);
   count = 0;
@@ -20,26 +25,25 @@ function getReviews(pageNum, callback) {
       result.promise.then(function(review) {
         theReviews.push(review.truncated());
         count++;
-        // 20 reviews per page.
+        // There are 20 reviews per page.
         if (count == 20) {
           callback(theReviews);
         }
       })
     })
   });
-}
+};
 
+/*
+ * Reviews route.
+ */
 app.get('/reviews', function(req, res) {
-
-  console.log('fetching reviews for page: ');
-
-  getReviews(1, sendTheData);
-
+  console.log('Fetching reviews for page: ' + req.query.page);
+  getReviews(req.query.page, sendTheData);
   function sendTheData(reviews) {
-    console.log("pitchfork callback achievement unlocked.");
+    console.log("Pitchfork callback achievement unlocked.");
     res.send(reviews);
   }
-
 });
 
 app.listen(app.get('port'), function() {
