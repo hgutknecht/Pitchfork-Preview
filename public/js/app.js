@@ -13,7 +13,7 @@ var ReviewContainer = React.createClass({
       dataType: 'json',
       cache: false,
       success: function(data) {
-        this.replaceState({data: data});
+        this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -22,16 +22,18 @@ var ReviewContainer = React.createClass({
   },
   componentDidMount: function() {
     // Fetch page 1 on app instantiation.
+    this.setState({layout:'teaser'});
     this.fetchReviews(1);
   },
-  handleLayoutChange: function(layout) {
+  handleLayoutChangeRequest: function(layout) {
     // Change layout based on child event.
-  },
-  handleSort: function(sort) {
-    // Change sort order based on child event.
+    console.log('Layout change request received for: ' + layout);
+    this.setState({layout: layout});
   },
   handlePageRequest: function(pageNumber) {
     // Change page number based on child event.
+    console.log('Clearing state');
+    this.replaceState({data: ''});
     console.log('Sucessfully handling page change to page no: ' + pageNumber);
     this.fetchReviews(pageNumber);
   },
@@ -39,7 +41,7 @@ var ReviewContainer = React.createClass({
     return (
       <div className="reviewContainer">
         <h1>Pitchfork Preview</h1>
-        <ReviewForm handlePageRequest={this.handlePageRequest} />
+        <ReviewForm handlePageRequest={this.handlePageRequest} handleLayoutChangeRequest={this.handleLayoutChangeRequest} handleSortRequest={this.handleSortRequest} />
         <ReviewList data={this.state.data} />
       </div>
     );
@@ -51,12 +53,18 @@ var ReviewContainer = React.createClass({
  */
 var ReviewList = React.createClass({
   render: function() {
-    var reviewNodes = this.props.data.map(function (review) {
-      return (
-        <Review name={review.name} artist={review.artist} album={review.album} score={review.score} text={review.text} cover={review.cover}>
-        </Review>
-      );
-    });
+    if (this.props.data) {
+      var reviewNodes = this.props.data.map(function (review) {
+        return (
+          <Review name={review.name} artist={review.artist} album={review.album} score={review.score} text={review.text} cover={review.cover}>
+          </Review>
+        );
+      });
+    }
+    else {
+      var reviewNodes = '';
+    }
+
     return (
       <div className="reviewList">
         {reviewNodes}
@@ -73,11 +81,17 @@ var ReviewForm = React.createClass({
   handlePageChange: function(e) {
     this.props.handlePageRequest(e.target.value);
   },
+  handleLayoutChange: function(e) {
+    this.props.handleLayoutChangeRequest(e.target.value);
+  },
   render: function() {
     return (
       <div className="reviewForm">
-        Sort:
         Layout:
+        <select value={this.props.pageNumber} onChange={this.handleLayoutChange} className="layout-change-select">
+          <option value="teaser">teaser</option>
+          <option value="tile">tile</option>
+        </select>
         Select Page:
         <select value={this.props.pageNumber} onChange={this.handlePageChange} className="page-change-select">
           <option value="1">1</option>
