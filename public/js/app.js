@@ -13,7 +13,7 @@ var ReviewContainer = React.createClass({
       dataType: 'json',
       cache: false,
       success: function(data) {
-        this.setState({data: data});
+        this.replaceState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -76,11 +76,8 @@ var ReviewForm = React.createClass({
   render: function() {
     return (
       <div className="reviewForm">
-        // Sort options.
-
-        // Layout change form.
-
-        // Page change form.
+        Sort:
+        Layout:
         Select Page:
         <select value={this.props.pageNumber} onChange={this.handlePageChange} className="page-change-select">
           <option value="1">1</option>
