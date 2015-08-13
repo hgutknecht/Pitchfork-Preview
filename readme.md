@@ -20,9 +20,11 @@ Running
 install dependicies
 `npm install`
 
-run application
-`node app.js`
+compile jsx (via babel, es6 OK)
+`gulp watch`
 
+run application
+`node main.js`
 
 License
 -------
