@@ -24,7 +24,4 @@ compile jsx (via babel, es6 OK)
 `gulp watch`
 
 run application
-`node main.js`
-
-License
--------
+`node app.js`
