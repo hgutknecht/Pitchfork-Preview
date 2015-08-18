@@ -42,7 +42,7 @@ var ReviewContainer = React.createClass({
       <div className="reviewContainer">
         <h1>Pitchfork Preview</h1>
         <ReviewForm handlePageRequest={this.handlePageRequest} handleLayoutChangeRequest={this.handleLayoutChangeRequest} handleSortRequest={this.handleSortRequest} />
-        <ReviewList data={this.state.data} />
+        <ReviewList data={this.state.data} layout={this.state.layout} />
       </div>
     );
   }
@@ -54,9 +54,9 @@ var ReviewContainer = React.createClass({
 var ReviewList = React.createClass({
   render: function() {
     if (this.props.data) {
-      var reviewNodes = this.props.data.map(function (review) {
+      var reviewNodes = this.props.data.map(function (review, key) {
         return (
-          <Review name={review.name} artist={review.artist} album={review.album} score={review.score} text={review.text} cover={review.cover}>
+          <Review key={key} name={review.name} artist={review.artist} album={review.album} score={review.score} text={review.text} cover={review.cover}>
           </Review>
         );
       });
@@ -64,7 +64,6 @@ var ReviewList = React.createClass({
     else {
       var reviewNodes = '';
     }
-
     return (
       <div className="reviewList">
         {reviewNodes}

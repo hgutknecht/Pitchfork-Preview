@@ -51,7 +51,7 @@ var ReviewContainer = React.createClass({
         'Pitchfork Preview'
       ),
       React.createElement(ReviewForm, { handlePageRequest: this.handlePageRequest, handleLayoutChangeRequest: this.handleLayoutChangeRequest, handleSortRequest: this.handleSortRequest }),
-      React.createElement(ReviewList, { data: this.state.data })
+      React.createElement(ReviewList, { data: this.state.data, layout: this.state.layout })
     );
   }
 });
@@ -64,13 +64,12 @@ var ReviewList = React.createClass({
 
   render: function render() {
     if (this.props.data) {
-      var reviewNodes = this.props.data.map(function (review) {
-        return React.createElement(Review, { name: review.name, artist: review.artist, album: review.album, score: review.score, text: review.text, cover: review.cover });
+      var reviewNodes = this.props.data.map(function (review, key) {
+        return React.createElement(Review, { key: key, name: review.name, artist: review.artist, album: review.album, score: review.score, text: review.text, cover: review.cover });
       });
     } else {
       var reviewNodes = '';
     }
-
     return React.createElement(
       'div',
       { className: 'reviewList' },
