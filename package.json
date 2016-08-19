@@ -15,7 +15,7 @@
     "react": "^0.13.1",
     "underscore": "^1.8.3",
     "express": "^4.4.5",
-    "pitchfork": "^0.0.8"
+    "pitchfork": "^0.0.10"
     },
   "devDependencies": {
     "jshint": "^2.6.3",
