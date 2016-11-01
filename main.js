@@ -41,7 +41,7 @@ app.get('/reviews', function(req, res) {
   console.log('Fetching reviews for page: ' + req.query.page);
   getReviews(req.query.page, sendTheData);
   function sendTheData(reviews) {
-    console.log("Pitchfork callback achievement unlocked.");
+    console.log('Pitchfork callback achievement unlocked.');
     res.send(reviews);
   }
 });

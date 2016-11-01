@@ -1,3 +1,5 @@
+*NOTE* - the npm module for _pitchfork_ does not current work with the new react based pitchfork site.
+
 Pitchfork Preview
 ===========
 
